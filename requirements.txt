@@ -1,0 +1,16 @@
+# requirements.txt
+pyautogen[agentchat]
+pyautogen[autogen-core]
+pyautogen[autogen-ext]
+langchain_experimental
+openai
+python-dotenv
+
+# --- Tool Dependencies (Add as you implement tools) ---
+# For Google Calendar:
+# google-api-python-client google-auth-httplib2 google-auth-oauthlib
+
+# For Git interaction:
+# GitPython
+
+# Add other libraries Milo might need (e.g., requests for other APIs)
