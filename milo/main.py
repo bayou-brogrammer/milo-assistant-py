@@ -7,12 +7,20 @@ from autogen_agentchat.messages import TextMessage
 from autogen_core import CancellationToken
 from dotenv import load_dotenv
 from agents.milo import milo
+from utils.mcp import print_tools
 from utils.console import rich_console
+import logging
+
+logging.basicConfig(level=logging.INFO)
 
 
 async def main():
     """Main entry point for Milo."""
+
+    logger = logging.getLogger(__name__)
     agent = await milo()
+
+    print_tools(agent._tools)
 
     await rich_console(
         stream=agent.on_messages_stream(
@@ -32,6 +40,7 @@ async def main():
             user_input = input("> ")
 
             if user_input == "exit":
+                logger.info("Session ended")
                 break
 
             await rich_console(
@@ -42,7 +51,10 @@ async def main():
                 show_intermediate=True,
             )
         except KeyboardInterrupt:
-            print("\nGoodbye! 👋")
+            logger.info("Session ended")
+            break
+        except EOFError:
+            logger.info("Session ended")
             break
 
 
